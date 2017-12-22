@@ -7,9 +7,15 @@ import (
 	"os"
 )
 
+const (
+	minPort = 1024
+	maxPort = 65535
+)
+
 func main() {
 	port := flag.Uint("p", 8080, "the port used by this app")
 	flag.Parse()
+
 	a := App{}
 	a.Initialize(
 		os.Getenv("APP_DB_USERNAME"),
@@ -17,12 +23,12 @@ func main() {
 		os.Getenv("APP_DB_DBNAME"),
 	)
 
-	if *port < 1000 || *port > 9999 {
+	if *port <= minPort || *port > maxPort {
 		log.Fatalf("incorrect port : %d", *port)
 	}
 
 	fmt.Printf("App listening to port : %d\n", *port)
 
-	p := ":" + fmt.Sprint(*port)
+	p := fmt.Sprintf(":%d", *port)
 	a.Run(p)
 }
