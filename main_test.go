@@ -11,7 +11,7 @@ import (
 
 	"log"
 
-	"."
+	main "github.com/IamTossan/go-rest-api"
 )
 
 var a main.App
